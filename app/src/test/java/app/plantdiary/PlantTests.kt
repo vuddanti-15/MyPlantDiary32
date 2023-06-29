@@ -3,29 +3,28 @@ package app.plantdiary
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.plantdiary.dto.Plant
 import app.plantdiary.service.PlantService
-import junit.framework.Assert.*
-import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestRule
 
 class PlantTests {
 
     @get:Rule
-    var rule: TestRule = InstantTaskExecutorRule()
+    val rule: InstantTaskExecutorRule = InstantTaskExecutorRule()
 
-    lateinit var plantService : PlantService
-    var allPlants : List<Plant>? = ArrayList<Plant>()
+    private lateinit var plantService: PlantService
+    private var allPlants: List<Plant> = emptyList()
 
     @Test
-    fun `Given plant data are available when I search for Redbud then I should receive Cercis canadensis` () = runTest {
+    fun `Given plant data are available when I search for Redbud then I should receive Cercis canadensis`() = runBlocking {
         givenPlantServiceIsInitialized()
         whenPlantDataAreReadAndParsed()
         thenThePlantCollectionShouldContainCercisCanadensis()
     }
 
     private fun givenPlantServiceIsInitialized() {
-       plantService = PlantService()
+        plantService = PlantService()
     }
 
     private suspend fun whenPlantDataAreReadAndParsed() {
@@ -34,14 +33,8 @@ class PlantTests {
 
     private fun thenThePlantCollectionShouldContainCercisCanadensis() {
         assertNotNull(allPlants)
-        assertTrue(allPlants!!.isNotEmpty())
-        var containsCercisCanadensis = false
-        allPlants!!.forEach {
-            if (it.genus.equals(("Cercis")) && it.species.equals("canadensis")) {
-                containsCercisCanadensis = true
-            }
-        }
+        assertTrue(allPlants.isNotEmpty())
+        val containsCercisCanadensis = allPlants.any { it.genus.equals("Cercis", ignoreCase = true) && it.species.equals("canadensis", ignoreCase = true) }
         assertTrue(containsCercisCanadensis)
     }
-
 }
