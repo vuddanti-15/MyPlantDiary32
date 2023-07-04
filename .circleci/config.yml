@@ -35,6 +35,8 @@ jobs:
       - run:
           name: Run unit tests
           command: ./gradlew testDebugUnitTest --stacktrace
+          command : ./gradlew assembleRelease --warning-mode all
+
 
       - save_cache:
           key: jars-{{ checksum "build.gradle" }}
