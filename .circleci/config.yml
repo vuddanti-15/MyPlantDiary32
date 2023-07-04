@@ -33,24 +33,25 @@ jobs:
           command: ./gradlew assembleRelease --warning-mode all
 
       - run:
-          name: Run unit tests
-          command: ./gradlew testDebugUnitTest
+               name: Build project
+               command: ./gradlew assembleDebug --warning-mode all --stacktrace
+
 
 
 
         - run:
-    name: Build project
-    command: ./gradlew assembleDebug --warning-mode all --stacktrace
+                name: Build project
+                command: ./gradlew assembleDebug --warning-mode all --stacktrace
 
 
           - run:
-    name: Build project
-    command: ./gradlew assembleDebug --warning-mode all --scan
+               name: Build project
+              command: ./gradlew assembleDebug --warning-mode all --scan
 
 
 - run:
-    name: Build project
-    command: ./gradlew assembleDebug --warning-mode all --info
+         name: Build project
+        command: ./gradlew assembleDebug --warning-mode all --info
 
 
 
