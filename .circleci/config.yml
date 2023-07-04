@@ -28,16 +28,13 @@ jobs:
           name: Clean project
           command: ./gradlew clean
 
-     
+      - run:
+          name: Build project
+          command: ./gradlew assembleRelease --warning-mode all
 
-     
-
-
-
-
-
-
-
+      - run:
+          name: Run unit tests
+          command: ./gradlew testDebugUnitTest
 
       - save_cache:
           key: jars-{{ checksum "build.gradle" }}
