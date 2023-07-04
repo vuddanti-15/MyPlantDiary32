@@ -32,11 +32,7 @@ jobs:
           name: Build project
           command: ./gradlew assembleRelease --warning-mode all
 
-      - run:
-               name: Build project
-               command: ./gradlew assembleDebug --warning-mode all --stacktrace
-
-
+     
 
 
         - run:
